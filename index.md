@@ -10,4 +10,18 @@ The deep web hash was revealed by the mysterious group Cicada 3301 -- for all we
 
 It is strongly believed that this is a legitimate challenge. So far, such a page has not been found, in any of the interpretations of "hashes to": it is unclear whether we should contain the hash of the whole source code, or just the visible text, or the code of a single e.g. image on the webpage, and it is unclear which hash algorithm is to be used.
 
-This project is, as written above, an attempt to find any strings which hash to this, by distributing the work over many devices. Inverting hashes is difficult and, for modern hash algorithms such as SHA-2 (specifically, SHA-1024) no method significantly better than bruteforce is known.
+This project is, as written above, an attempt to find any strings which hash to this, by distributing the work over many devices. Inverting hashes is difficult and, for modern hash algorithms such as SHA-2 (specifically, SHA-512) no method significantly better than bruteforce is known.
+
+# Time complexity
+
+On an average consumer-grade single-core PC, one can perform 2.4 billion operations per second. The SHA-2 algorithm has a linear, i.e. O(n), time complexity, so (assuming a t.c. constant of at most 60, which is generous) we can hash 40 million bytes a second. In a 512-bit hash algorithm (like the one used for the DWH) there are approximately 10^148 million possible hashes, so brute-forcing all hashes on an average consumer-grade single-core PC would take at most 4 x 10^147 days - still nowhere close to imaginable (this estimate is likely inaccurate as hashing longer strings requires more time, so we can hash lots of short strings initially and then we'll slow down, rather than hashing a single 40 million byte string every second). The search for the DWH is somewhat facilitated by the following factors (in order of descending importance):
+
+- We obviously don't have to check *every* hash to find just the DWH. The DWH may be the hash of a relatively short string compared to preimages of other hashes; this is quite likely as, if the "hash" of a webpage means the hash of its source code, Cicada's Onions have precisely had quite small source code.
+- The work is distributed over many separate computers. If, say, 10,000 people use this website, the amount of time needed to find the DWH is decreased by a factor of 10,000 as we can compute 10,000 times more hashes a second.
+- Individual computers may have more processing power. Some supercomputers have millions of cores, which would enable them to hash trillions of bytes a second. It's unlikely, however, that we could access such a supercomputer.
+
+Another contrasting downside is that the first string which hashes to the DWH may not be the intended string. Such collisions are doomed to happen: there are infinitely many inputs but only finitely many outputs, so the pigeonhole principle applies. Hence, we won't stop the search once the DWH has first occurred. But searching for collisions is marginally faster than searching for preimages, and we will likely have a few collisions before all hashes have been found.
+
+# Contribute
+
+[Contribute](compute.md) your computer power to find the DWH!
