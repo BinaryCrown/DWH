@@ -22,6 +22,10 @@ On an average consumer-grade single-core PC, one can perform 2.4 billion operati
 
 Another contrasting downside is that the first string which hashes to the DWH may not be the intended string. Such collisions are doomed to happen: there are infinitely many inputs but only finitely many outputs, so the pigeonhole principle applies. Hence, we won't stop the search once the DWH has first occurred. But searching for collisions is marginally faster than searching for preimages, and we will likely have a few collisions before all hashes have been found.
 
+# Mechanism
+
+On the page to contribute, you will choose a hash algorithm with which to search (after all, the DWH might be something other than SHA-512). The server then assigns your computer a section of the hashes to work on, which it will do locally. It likely won't take long; the use of these sections is so that multiple computers don't overlap, as this is a waste of productivity. Currently it doesn't work: the code hasn't been written and it would likely require server-side code, while GitHub pages only supports static sites. Eventually something will be figured out... Then the search for the DWH can commence!
+
 # Contribute
 
 [Contribute](compute.md) your computer power to find the DWH!
